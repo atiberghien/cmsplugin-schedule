@@ -1,0 +1,53 @@
+{%load sekizai_tags %}
+
+{% addtoblock "css" %}
+<link href="{{ STATIC_URL }}css/fullcalendar.css" media="all" rel="stylesheet" type="text/css" />
+{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/fullcalendar.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+        monthNames:['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+		monthNamesShort:['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'],
+		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+		dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+		titleFormat: {
+		    month: 'MMMM yyyy',
+		    week: "d[ MMMM][ yyyy]{ - d MMMM yyyy}",
+		day: 'dddd d MMMM yyyy'
+		},
+		columnFormat: {
+		    month: 'ddd',
+		week: 'ddd d',
+		day: ''
+		},
+		axisFormat: 'H:mm', 
+		timeFormat: {
+		    '': 'H:mm', 
+		agenda: 'H:mm{ - H:mm}'
+		},
+		firstDay:1,
+		buttonText: {
+		    today: 'aujourd\'hui',
+		    day: 'jour',
+		    week:'semaine',
+		    month:'mois'
+		}, 
+		header: {
+		    left: 'prev,next today',
+			center: 'title',
+			right: ''
+		},
+		events: "{% url 'get-calendar-events' instance.calendar.slug %}",
+    });
+
+});
+</script>
+{% endaddtoblock %}     
+
+
+<div id="calendar"></div>

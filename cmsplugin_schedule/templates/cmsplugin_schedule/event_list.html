@@ -1,0 +1,14 @@
+<h1>{{instance.get_period_display}}</h1>
+<ul>
+	{% for event in events %}
+		{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#date #}
+		{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#time #}
+		{% if instance.period == 'D' %}
+		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
+		{% elif instance.period == 'W' %}
+		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
+		{% else %}
+		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
+		{% endif %}
+	{% endfor %}
+</ul>

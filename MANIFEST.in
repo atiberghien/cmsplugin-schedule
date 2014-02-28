@@ -1,0 +1,4 @@
+include AUTHORS
+recursive-include cmsplugin_schedule/templates *
+recursive-include cmsplugin_schedule/migrations *
+recursive-include cmsplugin_schedule/static *
