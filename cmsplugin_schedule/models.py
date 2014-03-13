@@ -2,6 +2,7 @@ from cms.models.pluginmodel import CMSPlugin
 
 from django.db import models
 from schedule.models.calendars import Calendar
+from schedule.models.events import Occurrence
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
@@ -31,3 +32,11 @@ class EventsByPeriodPlugin(CMSPlugin):
                                help_text=_("To dissociate event type"))
     
 
+@property
+def is_past_due(self):
+    from datetime import date
+    if date.today() > self.end.date():
+        return True
+    return False
+
+setattr(Occurrence, "is_past_due", is_past_due)

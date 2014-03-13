@@ -3,12 +3,17 @@
 	{% for event in events %}
 		{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#date #}
 		{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#time #}
+		<li {% if event.is_past_due %}class="old-event"{% endif %}>
 		{% if instance.period == 'D' %}
-		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
-		{% elif instance.period == 'W' %}
-		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
+			{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}
+        	<div class="desc">{{event.description}}</div>
+        {% elif instance.period == 'W' %}
+            {{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}
+            <div class="desc">{{event.description}}</div>
 		{% else %}
-		<li>{{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}</li>
+            {{event.title}} - {{event.start|date:"l d F Y"|capfirst}}, {{event.start|date:"G\hi"}}-{{event.end|date:"G\hi"}}
+            <div class="desc">{{event.description}}</div>
 		{% endif %}
+		</li>
 	{% endfor %}
 </ul>
