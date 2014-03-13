@@ -55,9 +55,14 @@ class EventsByPeriodPlugin(CMSPluginBase):
         
         start = make_aware(start, utc)
         end = make_aware(end, utc)
-        
-        for event in instance.calendar.event_set.filter(start__gte=start, end__lte=end):
-            occurrences.extend(event.get_occurrences(start, end))
+
+        for event in instance.calendar.event_set.all():
+            if instance.event_type:
+                if event.event.creator and event.event.creator in instance.event_type.user_set.all():
+                    occurrences.extend(event.get_occurrences(start, end))
+            else:
+                occurrences.extend(event.get_occurrences(start, end))
+        occurrences.sort(key=lambda x: x.start)
         context["events"] = occurrences
         context['instance'] = instance
         return context

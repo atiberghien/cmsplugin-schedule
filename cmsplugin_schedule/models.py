@@ -26,3 +26,8 @@ class EventsByPeriodPlugin(CMSPlugin):
                               choices=(('D', _('Today')),
                                        ('W', _('This week')),
                                        ('M', _('This month'))))
+    event_type = models.ForeignKey(Group, null=True, blank=True,
+                               verbose_name=_("Group"),
+                               help_text=_("To dissociate event type"))
+    
+
