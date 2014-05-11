@@ -19,7 +19,7 @@ class EventListView(View):
         start = datetime.fromtimestamp(int(request.GET.get('start')), tz=utc)
         end = datetime.fromtimestamp(int(request.GET.get('end')), tz=utc)
         occurrences = []
-        for event in calendar.event_set.filter(start__gte=start, end__lte=end):
+        for event in calendar.event_set.all():
             
             for occurrence in event.get_occurrences(start, end):
                 occurrences.append({
